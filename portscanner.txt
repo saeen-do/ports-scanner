@@ -1,0 +1,33 @@
+building a port scanner with python:
+
+for building an advance port scanner we can use many approaches
+we may think that we can use 65000 threads to scan 65000 ports it will complete the scanning in 1 second but the thing is we can only use 500 to 1000 threads at a time in a normal machine, we can not use unlimited thread
+
+the second approach is we can create 500 threads, by creating 500 threads we can scan 500 ports at a time it will better than scanning all ports one by one.we will go with this approach but we should be very carefully while using 500 threads there can be several problems like all 500 threads are scanning the same 1 ports or after the 500 threads scan the first 500 ports the may not scan the next 500(500-1000) instead they just start scanning the first 500 again etc
+for this issue we have to use something that removes the port after it is scanned so it is not repeated for this we will use generators
+generators are like itrators , generators are also like list but in geneators if we have used an element once we would not be able to use it the second time
+
+positional arguments are the one that are compulsary to use , like in nmap ip is the positional argument 
+optional arguments are which are not compulsary for the program to run like in nmap version or port number or verbose are the optional arguments
+
+
+starting with the shebang line
+
+ Generators and yield:
+
+    I used a generator function called prepare_ports. This means it can produce a list of port numbers one at a time instead of creating a full list all at once. This saves memory, especially when scanning many ports.
+Multithreading:
+
+    I added multithreading using the Thread class. This lets the scanner check multiple ports at the same time, making the scanning process much faster.
+
+Socket Programming:
+
+    The socket library helps me connect to the ports. For each port, I try to make a connection. If I can connect, the port is open; if not, the program just moves on without crashing.
+
+Argument Parsing:
+
+    I used the argparse library to allow users to easily set the IP address, port range, number of threads, and whether they want more details in the output. This makes it easy for anyone to use the tool.
+
+Thread Synchronization:
+
+    I used a Lock to prevent multiple threads from messing up the list of open ports. This ensures the program runs smoothly and accurately.
